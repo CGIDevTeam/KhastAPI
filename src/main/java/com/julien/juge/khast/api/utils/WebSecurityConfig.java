@@ -22,7 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/v1/users").authenticated()
-                .antMatchers("/v1/notifications").authenticated();
+                .antMatchers("/v1/notifications").authenticated()
+                .antMatchers("/v1/posts").authenticated();
 
         JwtWebSecurityConfigurer
                 .forRS256(audience, issuer)
