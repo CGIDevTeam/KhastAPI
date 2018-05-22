@@ -13,4 +13,8 @@ public class PostDto {
 
     private Date createdDate;
 
+    private EventDto event;
+
+    private TextDto text;
+
 }

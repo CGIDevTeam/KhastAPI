@@ -26,4 +26,8 @@ public class PostService {
         return Observable.just(postRepository.findAll());
     }
 
+    public Observable<PostEntity> savePost(PostEntity post) {
+        return Observable.just(postRepository.save(post));
+    }
+
 }

@@ -1,0 +1,11 @@
+{
+  "name": "khastapi",
+  "version": "1.0.0",
+  "description": "KhastAPI",
+  "dependencies": {
+    "apidoc": "^0.17.5"
+  },
+  "scripts": {
+    "doc": "apidoc -i src/main/java/com/julien/juge/khast/api -o src/main/resources/public/api-doc/khast"
+  }
+}
