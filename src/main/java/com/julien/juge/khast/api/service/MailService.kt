@@ -8,7 +8,6 @@ import com.mailjet.client.MailjetResponse
 import com.mailjet.client.errors.MailjetException
 import com.mailjet.client.errors.MailjetSocketTimeoutException
 import com.mailjet.client.resource.Emailv31
-import lombok.extern.slf4j.Slf4j
 import org.json.JSONArray
 import org.json.JSONObject
 import org.reactivecouchbase.json.JsObject
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service
 import rx.Observable
 
 @Service
-@Slf4j
 class MailService {
 
     @Value("\${mailjet.apikey}")

@@ -14,8 +14,8 @@ constructor(private val postRepository: PostRepository, private val textReposito
     val allPost: Observable<List<PostEntity>>
         get() = Observable.just(postRepository.findAll())
 
-    fun savePost(post: PostEntity): Observable<PostEntity> {
-        return Observable.just(postRepository.save(post))
+    fun savePost(post: PostEntity): Observable<Boolean> {
+        return Observable.just(postRepository.save(post)).map { true }
     }
 
 }

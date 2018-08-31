@@ -11,7 +11,7 @@ object EntityBuilder {
     }
 
     fun buildPostEntity(post: PostDto): PostEntity {
-        return PostEntity(post.createdDate, buildEventEntity(post.event!!), buildTextEntity(post.text!!.text))
+        return PostEntity(post?.createdDate, buildEventEntity(post?.event!!), buildTextEntity(post.text?.text))
     }
 
     fun buildEventEntity(event: com.julien.juge.khast.api.dto.input.EventDto): EventEntity {

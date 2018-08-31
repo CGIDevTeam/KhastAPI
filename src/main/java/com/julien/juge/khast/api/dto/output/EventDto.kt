@@ -1,13 +1,7 @@
 package com.julien.juge.khast.api.dto.output
 
-import lombok.Builder
-import lombok.Data
+import java.util.*
 
-import javax.validation.constraints.NotNull
-import java.util.Date
-
-@Builder
-@Data
 class EventDto {
 
     constructor(comment: String?, endDate: Date?, place: String?, price: Float?, startDate: Date?)

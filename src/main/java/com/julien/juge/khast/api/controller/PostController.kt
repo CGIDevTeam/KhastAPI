@@ -1,7 +1,6 @@
 package com.julien.juge.khast.api.controller
 
 import com.julien.juge.khast.api.dto.DtoBuilder
-import com.julien.juge.khast.api.dto.input.MailDto
 import com.julien.juge.khast.api.dto.output.PostDto
 import com.julien.juge.khast.api.entity.EntityBuilder
 import com.julien.juge.khast.api.entity.PostEntity
@@ -10,23 +9,15 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.Errors
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import rx.Observable
 import javax.validation.Valid
 
 @RestController
 @RequestMapping("/v1/posts")
-class PostController {
+open class PostController(@Autowired val postService: PostService) {
 
-
-    @Autowired
-    private val postService: PostService? = null
-
-    private val LOGGER = LoggerFactory.getLogger(NotificationController::class.java)
+    private val LOGGER = LoggerFactory.getLogger(PostController::class.java)
 
     /**
      * @api {get} /v1/posts Recuperation de tous les posts presents
@@ -56,9 +47,17 @@ class PostController {
      * }
      * ]
      */
-    @RequestMapping(method = arrayOf(RequestMethod.GET), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
-    fun getAllPosts(@RequestBody @Valid mailDto: MailDto, errors: Errors): Observable<ResponseEntity<List<PostDto>>> {
-        return postService!!.allPost.map {t: List<PostEntity> ->  DtoBuilder.buildListPostDtoOutput(t)}.map { ResponseEntity.ok(it) }.doOnError { e -> LOGGER.error("Probleme de sauvegarde du post", e) }
+    @RequestMapping(
+            path = [""],
+            method = [RequestMethod.GET],
+            consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE],
+            produces = [MediaType.APPLICATION_JSON_UTF8_VALUE]
+    )
+    fun getAllPosts(): Observable<ResponseEntity<List<PostDto>>> {
+        return postService!!.allPost
+                .map {t: List<PostEntity> ->  DtoBuilder.buildListPostDtoOutput(t)}
+                .map { ResponseEntity.ok(it) }
+                .doOnError { e -> LOGGER.error("Probleme de sauvegarde du post", e) }
     }
 
     /**
@@ -96,9 +95,16 @@ class PostController {
      * "success": 1
      * }
      */
-    @RequestMapping(method = arrayOf(RequestMethod.POST), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
-    fun savePost(@RequestBody @Valid postInput: com.julien.juge.khast.api.dto.input.PostDto, errors: Errors): Observable<ResponseEntity<PostDto>> {
-        return postService!!.savePost(EntityBuilder.buildPostEntity(postInput)).map { t: PostEntity ->  DtoBuilder.buildPostDtoOutput(t)}.map { ResponseEntity.ok(it) }.doOnError { e -> LOGGER.error("Probleme de sauvegarde du post", e) }
+    @ResponseBody
+    @RequestMapping(
+            method = [RequestMethod.POST],
+            consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE],
+            produces = [MediaType.APPLICATION_JSON_UTF8_VALUE]
+    )
+    fun savePost(@RequestBody @Valid postInput: com.julien.juge.khast.api.dto.input.PostDto): Observable<ResponseEntity<Boolean>> {
+        return postService.savePost(EntityBuilder.buildPostEntity(postInput))
+                .map { ResponseEntity.ok(it) }
+                .doOnError { e -> LOGGER.error("Probleme de sauvegarde du post", e) }
     }
 
 }

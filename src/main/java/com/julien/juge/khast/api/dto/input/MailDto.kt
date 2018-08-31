@@ -1,10 +1,7 @@
 package com.julien.juge.khast.api.dto.input
 
-import lombok.Data
-
 import javax.validation.constraints.NotNull
 
-@Data
 class MailDto {
 
     @NotNull(message = "L'adresse email est obligatoire")

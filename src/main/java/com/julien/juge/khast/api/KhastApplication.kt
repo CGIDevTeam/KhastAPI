@@ -1,19 +1,18 @@
-package com.altima.api.mrh
+package com.julien.juge.khast.api
 
-import com.julien.juge.khast.api.config.mvc.WebMvcConfiguration
+import com.julien.juge.khast.api.utils.WebSecurityConfig
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 @EnableAutoConfiguration
 open class KhastApplication {
 
     @Bean
-    open fun rxJavaWebMvcConfiguration(): WebMvcConfigurerAdapter {
-        return WebMvcConfiguration()
+    open fun rxJavaWebMvcConfiguration(): WebSecurityConfig {
+        return WebSecurityConfig()
     }
 }
 
