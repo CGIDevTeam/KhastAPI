@@ -1,4 +1,4 @@
-package com.altima.api.mrh
+package com.julien.juge.khast.api
 
 import com.julien.juge.khast.api.config.mvc.WebMvcConfiguration
 import org.springframework.boot.SpringApplication
