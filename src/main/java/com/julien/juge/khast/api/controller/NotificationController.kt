@@ -19,7 +19,7 @@ import javax.validation.Valid
 @RequestMapping("/v1/notifications")
 class NotificationController(@Autowired val mailService: MailService) {
 
-
+    // Loger !
     private val LOGGER = LoggerFactory.getLogger(NotificationController::class.java)
 
     @ResponseBody
