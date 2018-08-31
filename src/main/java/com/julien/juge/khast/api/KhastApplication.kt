@@ -1,5 +1,6 @@
 package com.julien.juge.khast.api
 
+import com.julien.juge.khast.api.config.mvc.WebMvcConfiguration
 import com.julien.juge.khast.api.utils.WebSecurityConfig
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
@@ -11,8 +12,8 @@ import org.springframework.context.annotation.Bean
 open class KhastApplication {
 
     @Bean
-    open fun rxJavaWebMvcConfiguration(): WebSecurityConfig {
-        return WebSecurityConfig()
+    open fun rxJavaWebMvcConfiguration(): WebMvcConfiguration {
+        return WebMvcConfiguration()
     }
 }
 

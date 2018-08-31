@@ -11,8 +11,9 @@ import rx.Observable
 class PostService @Autowired
 constructor(private val postRepository: PostRepository, private val textRepository: TextRepository) {
 
-    val allPost: Observable<List<PostEntity>>
-        get() = Observable.just(postRepository.findAll())
+    fun getPosts(): Observable<List<PostEntity>> {
+        return Observable.just(postRepository.findAll())
+    }
 
     fun savePost(post: PostEntity): Observable<Boolean> {
         return Observable.just(postRepository.save(post)).map { true }

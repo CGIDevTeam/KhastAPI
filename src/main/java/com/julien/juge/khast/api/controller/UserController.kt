@@ -20,13 +20,10 @@ class UserController {
 
     @ResponseBody
     @RequestMapping(
-            path = ["coucou"],
-            method = [RequestMethod.GET],
-            consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE],
-            produces = [MediaType.APPLICATION_JSON_UTF8_VALUE]
+            method = [RequestMethod.GET]
     )
     fun getAllPosts(): Observable<ResponseEntity<JsObject>> {
-        return Observable.just(ResponseEntity.ok(Json.obj()));
+        return Observable.just(ResponseEntity.ok(Json.obj().with("nom", "ducon")))
     }
 
 }

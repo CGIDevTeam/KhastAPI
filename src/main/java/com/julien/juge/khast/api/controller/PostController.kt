@@ -5,6 +5,9 @@ import com.julien.juge.khast.api.dto.output.PostDto
 import com.julien.juge.khast.api.entity.EntityBuilder
 import com.julien.juge.khast.api.entity.PostEntity
 import com.julien.juge.khast.api.service.PostService
+import org.reactivecouchbase.json.JsArray
+import org.reactivecouchbase.json.JsObject
+import org.reactivecouchbase.json.JsValue
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -15,7 +18,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/v1/posts")
-open class PostController(@Autowired val postService: PostService) {
+open class PostController(@Autowired val postService: PostService, @Autowired val dtoBuilder: DtoBuilder) {
 
     private val LOGGER = LoggerFactory.getLogger(PostController::class.java)
 
@@ -53,9 +56,10 @@ open class PostController(@Autowired val postService: PostService) {
             consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE],
             produces = [MediaType.APPLICATION_JSON_UTF8_VALUE]
     )
-    fun getAllPosts(): Observable<ResponseEntity<List<PostDto>>> {
-        return postService!!.allPost
-                .map {t: List<PostEntity> ->  DtoBuilder.buildListPostDtoOutput(t)}
+    fun getAllPosts(): Observable<ResponseEntity<JsArray>> {
+        return postService.getPosts()
+
+                .map { dtoBuilder.buildListPostDtoOutput(it)}
                 .map { ResponseEntity.ok(it) }
                 .doOnError { e -> LOGGER.error("Probleme de sauvegarde du post", e) }
     }
